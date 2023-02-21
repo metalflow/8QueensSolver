@@ -83,8 +83,8 @@ for populationSize in POPULATIONSIZES:
         print("Iteration #"+str(iteration))
 
         #create new population
-        newGeneration = population.copy()
-        newGenIndex = 0
+        newGeneration = []
+        #newGenIndex = 0
         #I got tired of the GA killing off good solutions
         #so I updated this section to copy forward any existing
         #solutions before performing any GA calcs, this also
@@ -95,11 +95,12 @@ for populationSize in POPULATIONSIZES:
         for currentSolution in population:
             normFactor+=currentSolution.performance
             if currentSolution.performance == 36:
-                newGenIndex+=1
+                newGeneration.append(currentSolution)
+                #newGenIndex+=1
             
         #time to make a new generation
         #while new generations size is less than current population size
-        while newGenIndex < populationSize:
+        while len(newGeneration) < populationSize:
             #find two parents, weighted for better performance scores
             weight = random.randint(0,normFactor)
             parent1 = None
@@ -108,7 +109,7 @@ for populationSize in POPULATIONSIZES:
                 if weight <= 0:
                     parent1=currentSolution
                     break
-            #make parent1 got assigned
+            #make sure parent1 got assigned
             if parent1 == None:
                 print("Parent 1 did not get assigned!!")
                 print("normFactor = "+str(normFactor)+" weight = "+str(weight)+" and current solution is "+str(currentSolution.data))
@@ -143,8 +144,10 @@ for populationSize in POPULATIONSIZES:
                     childData.append(currentNum)
             #now we add this new child to the new generation
             try:
-                newGeneration[newGenIndex].ManualSet(childData)
-                newGenIndex+=1
+                newGeneration.append(Solution())
+                newGeneration[-1].ManualSet(childData)
+                #newGeneration[newGenIndex].ManualSet(childData)
+                #newGenIndex+=1
             except Exception as e: 
                 print("Child failed to generate because:"+str(e))
         #now that we have made a new generation
