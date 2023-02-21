@@ -1,8 +1,9 @@
 import sys,random,math
 
 #set constants
-POPULATIONSIZES={10,100,500}
-
+#POPULATIONSIZES={10,100,500,1000}
+POPULATIONSIZES={10}
+MUTATIONFACTOR=50
 
 #define classes
 class Solution:
@@ -142,6 +143,22 @@ for populationSize in POPULATIONSIZES:
             for currentNum in parent2.data:
                 if childData.count(currentNum)<1:
                     childData.append(currentNum)
+            #now we need to check if this child needs mutation
+            while random.randint(0,100) > MUTATIONFACTOR:
+                #this child has been chosen for mutation
+                #select 1 index at random
+                index1 = random.randint(0,len(childData)-1)
+                #select another index at random
+                index2 = random.randint(0,len(childData)-1)
+                #if both indices are equal, try again
+                if index1 == index2:
+                    continue
+                else:
+                    #swap elements at these indices
+                    temp = childData[index1]
+                    childData[index1]=childData[index2]
+                    childData[index2]=temp
+                    del temp
             #now we add this new child to the new generation
             try:
                 newGeneration.append(Solution())
