@@ -198,7 +198,7 @@ for populationSize in POPULATIONSIZES:
         #now that we have made a new generation
         #we replace the old population with the new population
         population = newGeneration.copy()
-        population.sort(reverse=False,key=PerformanceSort)
+        #population.sort(reverse=False,key=PerformanceSort)
         del newGeneration
         #be sure to regather stats
         stats.append(GatherStats(population))
