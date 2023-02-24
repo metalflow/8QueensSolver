@@ -7,6 +7,7 @@ MAXPERFORMANCE=56
 
 #initialize variables
 NumIterations = 100
+statsFile= open("stat.csv","w")
 
 #define classes
 class Solution:
@@ -211,17 +212,24 @@ for populationSize in POPULATIONSIZES:
     #    print("solution "+str(currentSolution.data)+" has performance score of "+str(currentSolution.performance))
     #    if currentSolution.performance == MAXPERFORMANCE:
     #        currentSolution.DisplaySolution()
+    statsFile.write("population size "+str(populationSize)+" with "+str(NumIterations)+" iterations\n")
+    statsFile.write("Generation,Least Performance,Best Performance,Average Performance,Time per Generation\n")
     statCounter=0
     totalTime=0
     for stat in stats:
         if stats.index(stat) == 0:
             print("Generation:"+str(statCounter)+" Least Performance:"+str(stat[0])+" Best Performance:"+str(stat[1])+" Average Performance:"+str(stat[2]))
+            statsFile.write(str(statCounter)+","+str(stat[0])+","+str(stat[1])+","+str(stat[2])+"\n")
         else:
             perTime=stat[3]-stats[statCounter-1][3]
             totalTime+=perTime
             print("Generation:%d Least Performance:%d Best Performance:%d Average Performance:%f time per generation:%1.4f"%(statCounter,stat[0],stat[1],stat[2],perTime))
+            statsFile.write(str(statCounter)+","+str(stat[0])+","+str(stat[1])+","+str(stat[2])+","+str(perTime)+"\n")
         statCounter+=1
     averageTime=totalTime/(len(stats)-1)
     print("average time per generation:"+str(averageTime)+" seconds")
     del stats
     del population
+
+#clean up
+statsFile.close()
