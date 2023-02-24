@@ -1,0 +1,6 @@
+Please find my programming assignment #2 attached.  You will only need to execute 8QueensSolver.py in order to generate a new set of results.  If you wish to make any alterations to the parameters of the program, they shoudl be easily accessible at the top of the file listed under #SET CONSTANTS and #INITIALIZE VARAIBLES.
+
+The paramaters I used for developement was a set of four populations: 10,100,500,1000 over 100 iterations.  The fitness function was 56 - the number of queens that coul dbe attacked by any other queen.  I used constraints to carefully plan that queens would only end up in their own row and their own column, thus greatly reducing the search space.  Therefore, it was common for the first initial random creation to generate one or more calid solutions.  In order to preserve these actuals solutions (and any others create later on) I carried over existing solutions from generation to generation.  This also allowed me to simultaneously trim out any duplicate solutions, thus ensureing I generated as many unique solutions as possible.
+I set the mutation threshold to 50% to compensate for the stagnant nature of "well solved" populations, and set that mutation on a loop so that we would keep mutating until we did not meet the 50% threshold.  Mutuations were set up to randomly swap two indices with replacment.
+
+add plots
